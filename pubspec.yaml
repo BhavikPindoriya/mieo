@@ -1,0 +1,83 @@
+name: mieo_ui8
+description: "Mieo — Flutter UI kit (coded template for UI8)."
+# Private app package — never published to pub.dev.
+publish_to: 'none'
+
+# <build-name>+<build-number>: build-name maps to Android versionName / iOS
+# CFBundleShortVersionString, build-number to versionCode / CFBundleVersion.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.3
+
+# Keep this list minimal — every package here must earn its place (see
+# CLAUDE.md "Dependencies"). Add a one-line reason above anything new.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Provides Flutter's Material/Widgets/Cupertino localization delegates —
+  # required for Directionality to flip to RTL for RTL locales.
+  flutter_localizations:
+    sdk: flutter
+
+  # iOS-style glyphs for the few places a Cupertino icon is the right match.
+  cupertino_icons: ^1.0.8
+
+  # Routing (GetMaterialApp / GetPage / page transitions) and translations
+  # (Translations / .tr) ONLY — no GetxController, Obx or GetX DI.
+  get: ^4.7.3
+
+  # State management (Cubits) — app-wide ThemeCubit/LanguageCubit and
+  # per-feature blocs/.
+  flutter_bloc: ^9.1.1
+
+  # Renders the Figma-exported SVG icons/illustrations under assets/.
+  flutter_svg: ^2.3.0
+
+  # Plays the Rive mascot animations under assets/animations/ (the splash:
+  # Mieo flying in on his plane). Frame-by-frame character animation with a
+  # state machine and events — not something CustomPainter can replace.
+  rive: ^0.14.11
+
+  # Local persistence for app settings (theme mode, language).
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Device Preview 3 (WRTeam fork): runs the web demo inside a simulated
+  # phone/tablet with a toolbar (Android/iOS, device menu, light/dark) for
+  # checking the responsive Mobile/Tablet layouts. Needs Flutter 3.47+; on
+  # only where AppConfig.enableDevicePreview says so.
+  device_preview:
+    git:
+      url: https://github.com/wrteam-aayush/flutter_device_preview.git
+      ref: release/v3
+      path: device_preview
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Base lint set — extended with project rules in analysis_options.yaml.
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Every path here is also exposed as a constant in
+  # lib/core/constants/assets_constants.dart (or localization_constants.dart
+  # for the language files) — never reference an asset path string directly.
+  assets:
+    - assets/languages/
+    - assets/icons/
+    - assets/images/
+    - assets/animations/
+
+  # Nunito — the app's only typeface (Figma "font/family/Nunito"), SIL OFL
+  # licensed (assets/fonts/OFL.txt). One variable font file covers every
+  # weight the design uses (500–900) via its "wght" axis; Flutter resolves
+  # each TextStyle.fontWeight against it at render time.
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-VariableFont.ttf

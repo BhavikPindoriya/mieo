@@ -1,0 +1,56 @@
+# Static analysis config — `flutter analyze` must report zero issues before
+# any screen is considered done or any build is submitted (see CLAUDE.md).
+#
+# Project rules that no built-in lint can express (raw colors, LTR-only
+# insets, hardcoded strings/durations/asset paths, GetX state management…)
+# are checked by tool/check_rules.sh — run it alongside `flutter analyze`.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+  language:
+    # No implicit downcasts from dynamic (e.g. jsonDecode results) — every
+    # cast is written out explicitly.
+    strict-casts: true
+
+formatter:
+  # Matches the reference project's line length; `dart format .` reads this.
+  page_width: 120
+
+linter:
+  rules:
+    # ── Imports ──
+    # Relative imports for project files + ordered sections (dart:, then
+    # package:, then relative) enforce the "Flutter → packages → project"
+    # import grouping rule automatically.
+    - prefer_relative_imports
+    - directives_ordering
+
+    # ── const / final ──
+    - prefer_const_constructors
+    - prefer_const_constructors_in_immutables
+    - prefer_const_declarations
+    - prefer_const_literals_to_create_immutables
+    - prefer_final_locals
+    - prefer_final_in_for_each
+
+    # ── Style ──
+    - prefer_single_quotes
+    - always_declare_return_types
+    - avoid_redundant_argument_values
+    - unnecessary_lambdas
+    - unnecessary_parenthesis
+    - use_colored_box
+    - use_decorated_box
+    - sort_unnamed_constructors_first
+
+    # ── Correctness ──
+    - cancel_subscriptions
+    - close_sinks
+    - avoid_void_async
+    - only_throw_errors
+    - use_build_context_synchronously
